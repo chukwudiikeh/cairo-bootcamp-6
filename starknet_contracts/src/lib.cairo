@@ -58,6 +58,7 @@ mod Counter {
 
         fn multiply_count(ref self: ContractState, amount: u32) {
             self.only_owner();
+            assert(amount != 0, 'Amount cannot be 0');
             let current = self.count.read();
             let new_count = mul_num(current, amount);
             self.count.write(new_count);
@@ -65,6 +66,7 @@ mod Counter {
 
         fn divide_count(ref self: ContractState, amount: u32) {
             self.only_owner();
+            assert(amount != 0, 'Amount cannot be 0');
             let current = self.count.read();
             let new_count = div_num(current, amount);
             self.count.write(new_count);

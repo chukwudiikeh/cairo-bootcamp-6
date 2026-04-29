@@ -5,24 +5,27 @@ pub fn add_num(x: u32, y: u32) -> u32 {
     x + y
 }
 
-// subtraction logic
+// subtraction logic with if statement to check for negative result
 pub fn sub_num(x: u32, y: u32) -> u32 {
-    assert(x >= y, 'Result cannot be negative');
+    if x < y {
+        panic!("Result cannot be negative");
+    }
     x - y
 }
 
-// multiplication logic
+// multiplication logic with overflow handling
 pub fn mul_num(x: u32, y: u32) -> u32 {
     let result = x.checked_mul(y);
-    assert(result.is_some(), 'Multiplication overflow');
     match result {
         Option::Some(val) => val,
         Option::None => panic!("Multiplication overflow"),
     }
 }
 
-// division logic
+// division logic with zero check
 pub fn div_num(x: u32, y: u32) -> u32 {
-    assert(y != 0, 'Division by zero');
+    if y == 0 {
+        panic!("Division by zero");
+    }
     x / y
 }
