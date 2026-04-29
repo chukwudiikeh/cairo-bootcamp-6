@@ -1,9 +1,11 @@
 [package]
-name = "cairo_6"
+name = "cairo_program"
 version = "0.1.0"
 edition = "2025_12"
 
 # See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest.html
+
+[lib]
 
 [executable]
 

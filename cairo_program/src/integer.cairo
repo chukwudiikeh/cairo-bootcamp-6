@@ -1,20 +1,28 @@
-#[executable]
-fn main() {
-    let result: u8 = add_num(5, 6);
-    println!("the sum of x & y is: {}", result);
-    assert(result == 11, 'invalid sum logic');
-
-    let sub_result: u8 = sub_num(10, 5);
-    println!("sub result is: {}", sub_result);
-    assert(sub_result == 5, 'invalid sub logic');
-}
+use core::num::traits::CheckedMul;
 
 // addition logic
-fn add_num(x: u8, y: u8) -> u8 {
+pub fn add_num(x: u32, y: u32) -> u32 {
     x + y
 }
 
 // subtraction logic
-fn sub_num(x: u8, y: u8) -> u8 {
-    return x - y;
+pub fn sub_num(x: u32, y: u32) -> u32 {
+    assert(x >= y, 'Result cannot be negative');
+    x - y
+}
+
+// multiplication logic
+pub fn mul_num(x: u32, y: u32) -> u32 {
+    let result = x.checked_mul(y);
+    assert(result.is_some(), 'Multiplication overflow');
+    match result {
+        Option::Some(val) => val,
+        Option::None => panic!("Multiplication overflow"),
+    }
+}
+
+// division logic
+pub fn div_num(x: u32, y: u32) -> u32 {
+    assert(y != 0, 'Division by zero');
+    x / y
 }
