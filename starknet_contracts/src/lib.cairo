@@ -9,7 +9,7 @@ pub trait ICounter<T> {
     /// Multiply count.
     fn multiply_count(ref self: T, amount: u32);
     /// Divide count.
-    fn divide_count(ref self: T, amount: u32);
+    fn divide_count(ref self: T, amount: u32);`
     /// Retrieve count.
     fn get_count(self: @T) -> u32;
 }

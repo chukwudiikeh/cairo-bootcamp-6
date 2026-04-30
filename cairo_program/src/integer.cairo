@@ -1,31 +1,48 @@
-use core::num::traits::CheckedMul;
+use core::num::traits::{CheckedMul, CheckedAdd, CheckedSub, CheckedDiv};
 
-// addition logic
-pub fn add_num(x: u32, y: u32) -> u32 {
-    x + y
+fn main() {
+    let x: u32 = 10;
+    let y: u32 = 5;
+    
+    println!("Addition: {} + {} = {}", x, y, add_num(x, y));
+    println!("Subtraction: {} - {} = {}", x, y, sub_num(x, y));
+    println!("Multiplication: {} * {} = {}", x, y, mul_num(x, y));
+    println!("Division: {} / {} = {}", x, y, div_num(x, y));
 }
 
-// subtraction logic with if statement to check for negative result
-pub fn sub_num(x: u32, y: u32) -> u32 {
-    if x < y {
-        panic!("Result cannot be negative");
+fn add_num(x: u32, y: u32) -> u32 {
+    match x.checked_add(y) {
+        Option::Some(val) => val,
+        Option::None => panic!("Addition overflow"),
     }
-    x - y
 }
 
-// multiplication logic with overflow handling
-pub fn mul_num(x: u32, y: u32) -> u32 {
-    let result = x.checked_mul(y);
-    match result {
+fn sub_num(x: u32, y: u32) -> u32 {
+    if y > x {
+        panic!("Subtraction underflow:);
+    }
+    match x.checked_sub(y) {
+        Option::Some(val) => val,
+        Option::None => panic!("Subtraction underflow"),
+    }
+}
+
+fn mul_num(x: u32, y: u32) -> u32 {
+    match x.checked_mul(y) {
         Option::Some(val) => val,
         Option::None => panic!("Multiplication overflow"),
     }
 }
 
-// division logic with zero check
-pub fn div_num(x: u32, y: u32) -> u32 {
-    if y == 0 {
+fn div_num(x: u32, y: u32) -> u32 {
+     if y == 0 {
         panic!("Division by zero");
     }
-    x / y
+    if y > x {
+        panic!("Result would be less than 1");
+    }
+    match x.checked_div(y) {
+        Option::Some(val) => val,
+        Option::None => panic!("Division error"),
+    }
 }
