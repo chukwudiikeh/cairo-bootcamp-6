@@ -1,5 +1,6 @@
-use core::num::traits::{CheckedMul, CheckedAdd, CheckedSub, CheckedDiv};
+use core::num::traits::{CheckedMul, CheckedAdd, CheckedSub};
 
+#[executable]
 fn main() {
     let x: u32 = 10;
     let y: u32 = 5;
@@ -10,16 +11,16 @@ fn main() {
     println!("Division: {} / {} = {}", x, y, div_num(x, y));
 }
 
-fn add_num(x: u32, y: u32) -> u32 {
+pub fn add_num(x: u32, y: u32) -> u32 {
     match x.checked_add(y) {
         Option::Some(val) => val,
         Option::None => panic!("Addition overflow"),
     }
 }
 
-fn sub_num(x: u32, y: u32) -> u32 {
+pub fn sub_num(x: u32, y: u32) -> u32 {
     if y > x {
-        panic!("Subtraction underflow:);
+        panic!("Subtraction underflow");
     }
     match x.checked_sub(y) {
         Option::Some(val) => val,
@@ -27,22 +28,19 @@ fn sub_num(x: u32, y: u32) -> u32 {
     }
 }
 
-fn mul_num(x: u32, y: u32) -> u32 {
+pub fn mul_num(x: u32, y: u32) -> u32 {
     match x.checked_mul(y) {
         Option::Some(val) => val,
         Option::None => panic!("Multiplication overflow"),
     }
 }
 
-fn div_num(x: u32, y: u32) -> u32 {
+pub fn div_num(x: u32, y: u32) -> u32 {
      if y == 0 {
         panic!("Division by zero");
     }
     if y > x {
         panic!("Result would be less than 1");
     }
-    match x.checked_div(y) {
-        Option::Some(val) => val,
-        Option::None => panic!("Division error"),
-    }
+    x / y
 }

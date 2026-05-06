@@ -8,6 +8,7 @@ edition = "2025_12"
 [lib]
 
 [executable]
+name = "cairo_program"
 
 [cairo]
 enable-gas = false

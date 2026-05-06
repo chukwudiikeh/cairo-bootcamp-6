@@ -2,4 +2,4 @@
 // mod short_string;
 pub mod integer;
 // mod bool;
-mod bytearray;
+// mod bytearray;
